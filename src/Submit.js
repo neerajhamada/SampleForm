@@ -1,18 +1,25 @@
-import React, { useState } from "react"; 
+import React, { useEffect, useState } from "react"; 
+import Preview from "./Preview";
+
 const Submit = () => {
     const [name,setName] = useState('');
     const [mail,setMail] = useState('');
     const [phone,setPhone] = useState('');
+    const arr = [];
+    useEffect (()=> {
+        handleSubmit();
+    })
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = { name,mail,phone };
         console.log(data);
+        arr.push(data);
     }
     return(
         <div className="create">
             <h2>Sample Data</h2>
-            <form >
+            <form onSubmit={handleSubmit}>
                 <label>Full Name</label>
                 <input 
                 type="text"
@@ -34,11 +41,9 @@ const Submit = () => {
                 value={phone}
                 onChange={(e)=>setPhone(e.target.value)}
                 />
-                <button onMouseDown={handleSubmit}>Submit</button>
-
+                <button>Submit</button>
             </form>
-
-
+            <Preview arr = {arr} />
         </div>
     );
 }
